@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          npm ci
+          npm install
 
       - name: Zip artifact for deployment
         run: |
@@ -64,3 +64,10 @@ jobs:
         with:
           client-id: ${{ secrets.__clientidsecretname__ }}
           tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
+
+      - name: Deploy to Azure Functions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: PaperTrlAI
+          package: .
